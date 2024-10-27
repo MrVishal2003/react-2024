@@ -3,20 +3,18 @@ import './App.css'
 
 function App() {
 
-let [counter, setCounter] = useState(15)
-
-// let counter = 5
+let [counter, setCounter] = useState(0)
 
 const addValue = () => {
   if (counter === 20) {
-    alert("You not allow click more than 20 values");
+    alert("You not allow click more than 20 values 😉");
   } else
   setCounter(counter + 1)
 }
 
 const removeValue = () => {
   if (counter === 0) {
-    alert("Please click Add value");
+    alert("Please click Add value 😊");
   } else {
     setCounter(counter - 1);
   }
@@ -30,12 +28,15 @@ const removeValue = () => {
       <button
       onClick={addValue}
       >Add value {counter}</button>
+
       <br/>
+
       <button
       onClick={removeValue}
       >remove value {counter}</button>
+
       <p>
-        footer {counter}
+        Value is: {counter}
       </p>
     </>
   )
