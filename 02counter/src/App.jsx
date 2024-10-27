@@ -8,8 +8,9 @@ let [counter, setCounter] = useState(15)
 // let counter = 5
 
 const addValue = () => {
-  console.log("clicked", counter);
-  // counter  = counter + 1
+  if (counter === 20) {
+    alert("You not allow click more than 20 values");
+  } else
   setCounter(counter + 1)
 }
 
