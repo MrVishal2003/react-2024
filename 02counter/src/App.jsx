@@ -36,6 +36,7 @@ const removeValue = () => {
       >remove value {counter}</button>
 
       <p>
+        
         Value is: {counter}
       </p>
     

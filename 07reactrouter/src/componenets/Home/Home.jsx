@@ -34,7 +34,7 @@ export default function Home() {
         <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-12 h-full ">
           <img
             className="w-96"
-            src="https://i.ibb.co/5BCcDYB/Remote2.png"
+            src="https://img.freepik.com/premium-vector/male-programmer-with-development-codes_24911-63468.jpg?w=740"
             alt="image1"
           />
         </div>
@@ -43,7 +43,7 @@ export default function Home() {
       <div className="grid  place-items-center sm:mt-20">
         <img
           className="sm:w-96 w-48"
-          src="https://i.ibb.co/2M7rtLk/Remote1.png"
+          src="https://img.freepik.com/free-vector/javascript-frameworks-concept-illustration_114360-752.jpg?t=st=1735889559~exp=1735893159~hmac=d06cd172d9bfc46f871caa03d05e19c9c646205b3b59db6f111485c4d8be983e&w=740"
           alt="image2"
         />
       </div>
