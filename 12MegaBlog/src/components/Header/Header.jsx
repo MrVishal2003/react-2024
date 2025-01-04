@@ -1,73 +1,82 @@
-import React from 'react'
-import {Container, Logo, LogoutBtn} from '../index'
-import { Link } from 'react-router-dom'
-import {useSelector} from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import { Container, Logo, Avatar } from "../index";
+import { getIsUserLoggedIn } from "../../store/authSlice";
 
-function Header() {
-  const authStatus = useSelector((state) => state.auth.status)
-  const navigate = useNavigate()
+const Header = () => {
+  const isUserLoggedIn = useSelector(getIsUserLoggedIn);
 
   const navItems = [
     {
-      name: 'Home',
+      name: "Home",
       slug: "/",
-      active: true
-    }, 
+      active: true,
+    },
     {
       name: "Login",
       slug: "/login",
-      active: !authStatus,
-  },
-  {
+      active: !isUserLoggedIn,
+    },
+    {
       name: "Signup",
       slug: "/signup",
-      active: !authStatus,
-  },
-  {
+      active: !isUserLoggedIn,
+    },
+    {
       name: "All Posts",
       slug: "/all-posts",
-      active: authStatus,
-  },
-  {
+      active: isUserLoggedIn,
+    },
+    {
       name: "Add Post",
       slug: "/add-post",
-      active: authStatus,
-  },
-  ]
-
+      active: isUserLoggedIn,
+    },
+  ];
 
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className="shadow bg-white h-20">
       <Container>
-        <nav className='flex'>
-          <div className='mr-4'>
-            <Link to='/'>
-              <Logo width='70px'   />
-
-              </Link>
+        <nav className="flex h-full">
+          <div className="mr-4 h-full flex items-center justify-center">
+            <Link to="/">
+              <Logo
+                width="70px"
+                className=" p-2 rounded  transition-colors duration-200 ease-in"
+              />
+            </Link>
           </div>
-          <ul className='flex ml-auto'>
-            {navItems.map((item) => 
-            item.active ? (
-              <li key={item.name}>
-                <button
-                onClick={() => navigate(item.slug)}
-                className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                >{item.name}</button>
-              </li>
-            ) : null
+          <ul className=" relative flex ml-auto gap-4 text-lg">
+            {navItems.map((item) =>
+              item.active ? (
+                <li key={item.name}>
+                  <NavLink
+                    to={item.slug}
+                    className={({ isActive }) =>
+                      `h-full px-4 flex justify-center items-center  transition-colors duration-200 ease-in
+                                            ${
+                                              isActive
+                                                ? "bg-purple-300 font-medium text-purple-950"
+                                                : ""
+                                            }
+                                            `
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ) : null
             )}
-            {authStatus && (
-              <li>
-                <LogoutBtn />
+            {isUserLoggedIn && (
+              <li className=" flex items-center">
+                <Avatar />
               </li>
             )}
           </ul>
         </nav>
-        </Container>
+      </Container>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

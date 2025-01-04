@@ -1,38 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import './App.css'
-import authService from "./appwrite/auth"
-import {login, logout} from "./store/authSlice"
-import { Footer, Header } from './components'
-import { Outlet } from 'react-router-dom'
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Footer, Header } from "./components";
+import { currentUser, getIsUserLoggedIn } from "./store/authSlice";
+import { fetchAllPosts } from "./store/postsSlice";
 
-function App() {
-  const [loading, setLoading] = useState(true)
-  const dispatch = useDispatch()
+const App = () => {
+    const dispatch = useDispatch();
+    const isUserLoggedIn = useSelector(getIsUserLoggedIn);
 
-  useEffect(() => {
-    authService.getCurrentUser()
-    .then((userData) => {
-      if (userData) {
-        dispatch(login({userData}))
-      } else {
-        dispatch(logout())
-      }
-    })
-    .finally(() => setLoading(false))
-  }, [])
-  
-  return !loading ? (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
-      <div className='w-full block'>
-        <Header />
-        <main>
-        TODO:  <Outlet />
-        </main>
-        <Footer />
-      </div>
-    </div>
-  ) : null
-}
+    useEffect(() => {
+        const fetchAll = async () => {
+            if (!isUserLoggedIn) {
+                await dispatch(currentUser());
+            } else {
+                await dispatch(fetchAllPosts());
+            }
+        };
+        fetchAll();
+    }, [dispatch, isUserLoggedIn]);
 
-export default App
+    return (
+        <div className="min-w-screen min-h-screen flex flex-col justify-between">
+            <Header />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    );
+};
+
+export default App;
